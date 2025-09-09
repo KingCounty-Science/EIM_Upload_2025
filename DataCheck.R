@@ -26,4 +26,4 @@ dupes<-data_sub[which(duplicated(data_sub)),]
 filtered_df <- semi_join(x = data, y = dupes)
 
 #Writing to a .csv
-write.csv(filtered_df, file = "duplicates_PSSB2015-2025")
+write.csv(filtered_df, file = "duplicates_PSSB2015-2025.csv")
