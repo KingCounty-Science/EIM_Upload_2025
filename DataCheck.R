@@ -33,7 +33,7 @@ write.csv(filtered_df, file = "duplicates_PSSB2015-2025.csv")
 
 #Combining the counts of all entries based on the same criteria we used to determine the duplicates
 
-#Pulling out all of the info associated with each unique combo of sample id, life stage, and taxa
+#Pulling out all of the info associated with each unique combo of sample id, life stage, and taxa (except for the counts!)
 metadata <- data %>%
   distinct(Sample_ID, Result_Taxon_Name, Result_Taxon_Life_Stage, .keep_all = TRUE) %>%
   select(-Result_Value)
