@@ -9,13 +9,17 @@ Helpful Quicklinks:
 Directory:
 
 R Code
-- EIM_Location_Template.R : R code used to fill out the location template (i.e., adding new sites to EIM) using a combination of data from PSSB and SiteMaster. Creates .csv output that wll still require some editing. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/EIM_Location_Template.R)
-- DataCheck.R: R code used to check for duplicate entries of data for a given sample, based on taxa and lifestage. Duplcates are written out to a .csv for manual review. For 2025, we ended up cmombining the counts for our duplicate data. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/EIM_Location_Template.R)
+- How to EIM (with R).Rmd: A comprehensive guide on how to complete EIM upload, including helpful snippets of R code from both R files
+- EIM_Locations.R : R code used to fill out the location template (i.e., adding new sites to EIM) using a combination of data from PSSB and SiteMaster. Creates .csv output that wll still require some editing. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/EIM_Location_Template.R)
+- EIM_Results.R: R code used to check for duplicate entries of data for a given sample, based on taxa and lifestage. Duplcates are written out to a .csv for manual review. For 2025, we ended up cmombining the counts for our duplicate data. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/EIM_Location_Template.R)
 
-2025 data files
-- EIMLocationTemplate.csv : Empty spreadsheet containing column headers for the 2025 location template. To be filled out using the EIM_Location_Template.R script.(https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/EIMLocationTemplate.csv)
+2025 data files - all in the folder DataInputs:
+
 - PSSBDownload_2015-2025.csv & PSSBDownload_Vashon_2015-2025.csv : Our "bug data" from 2015-2025 to be uploaded to EIM. Was manually reformatted to meet EIM standards. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/PSSBDownload_2015-2025.csv) (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/PSSBDownload_Vashon_2015-2024.csv)
 - PSSB_LocationInfo.csv : Download from PSSB that had location information for each site (like the WRIA, subbasin, etc.). (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/PSSB_LocationInfo.csv)
 - duplicates_PSSB2015-2025 : Output .csv from DataCheck.R containing duplicate site entries based on taxa and lifestage. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/duplicates_PSSB2015-2025.csv)
 - locationtemplate.xlsx : A manually reviewed and edited version of the output file from EIM_Location_Template.R. Contains all of the new sites to be added in the 2025 PSSB upload. (https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/locationtemplate.xlsx)
 - EIM_data_20215-2025: Output .csv from DataCheck.R that is ready for upload to EIM (see R file for details on processing) (https://github.com/AnnaThario/EIM_Upload_2025/blob/db9757130fb31d0a805a42583200f8cfdaf2cce4/EIM_data_2015-2025.csv)
+
+2025 location templates - all in the folder Blank Templates:
+- - EIMLocationTemplate.csv : Empty spreadsheet containing column headers for the 2025 location template. To be filled out using the EIM_Location_Template.R script.(https://github.com/AnnaThario/EIM_Upload_2025/blob/c601913492e42896004050881b40d8d1a361b85a/EIMLocationTemplate.csv)
