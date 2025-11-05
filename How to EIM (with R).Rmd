@@ -142,7 +142,7 @@ Information such as the lat/long of the site and a location description can be f
 
 1.  To download from PSSB, follow the same steps as in [PSSB Results Data Download], but under, "Year", select "Latest per Site in Range" (Figure 9). Then, in the "Specify Your Download" pop-up, select "Standard Sample Format" (Figure 10).
 
-Ideally, you want to download results with only one entry per site, as we just want information about the site itself.
+Ideally, you want to download results with only one entry per site, as we just want information about the site itself. In 2025, we downloaded site info from PSSB and saved it as PSSB_LocationInfo.csv.
 
 ![Figure 9](images/clipboard-1283513624.png)
 
