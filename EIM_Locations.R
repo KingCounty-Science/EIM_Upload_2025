@@ -46,8 +46,8 @@ location_template <- read.csv("BlankTemplates/EIMLocationTemplate.csv")
   #Adding in the location_ids
   location_template$Location_ID <- added_locations
   
-    #Removing incorrect data entry
-    location_template <- location_template[-41,]
+  #Removing row for 08CED_bug1 because that is no longer a site we sample; it was established for ISP and then dropped after 2024
+    location_template <- location_template[location_template$Location_ID != "08CED_bug1",]
   
   #Adding in the location setting
   location_template$Location_Setting <-"Stream/River-Riffle"
