@@ -2,9 +2,6 @@
 ##Code by Anna Thario
 ##Last Updated: 8/12/2025
 
-#Install Packages
-install.packages("tidyr")
-
 #Load in packages
 library(tidyr)
 library(dplyr)
@@ -37,6 +34,9 @@ added_locations <-setdiff(PSSB_Locations,EIM_Locations)
 location_template <- read.csv("BlankTemplates/EIMLocationTemplate.csv")
   #Just checking the column headers
   head(location_template)
+ 
+  #save the column names needed for the EIM template
+  namestokeep <- colnames(location_template)
   #Adding in rows of NA values to dataset the length of the number of new sites
   #This will allow us to add in data to each column from various sources
   location_template[1:length(added_locations),] <- ""
@@ -89,8 +89,8 @@ location_template <- read.csv("BlankTemplates/EIMLocationTemplate.csv")
   location_template$Latitude_Decimal_Degrees <- location_template$Lat
   location_template$Longitude_Decimal_Degrees <- location_template$Long
   
-  #Deleting superfluous columns
-  location_template <- location_template[,-(66:115)]
+  #Keep columns from template
+  location_template <- location_template[,colnames(location_template) %in% namestokeep]
   
   #Exporting as a .csv
   write.csv(location_template, "locationtemplate_v1.csv")
