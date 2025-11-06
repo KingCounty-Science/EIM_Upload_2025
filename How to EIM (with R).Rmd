@@ -1,11 +1,12 @@
 ---
 title: "How to EIM (with R)"
 output:
-  html_document:
+pdf_document: default
+html_notebook: default
+word_document: default
+html_document:
     df_print: paged
-  html_notebook: default
-  word_document: default
-  pdf_document: default
+
 ---
 
 Adapted from "EIM_HowTo2018" by Liora Llewellyn, based on work completed for the 2025 EIM upload of locations and data spanning from 2015 to 2025.
@@ -381,7 +382,7 @@ The code below writes out 2 csvs, one for "Result_Taxon_TSN" and one for "Result
 
 ```{r, results = FALSE, warning=FALSE}
 #Reading in our data
-EIMdata <- read.csv("DataInputs/EIM_data_2015-2025.csv")
+EIMdata <- read.csv("EIM_data_2015-2025.csv")
 
 #Checking that result taxon tsn align with accepted EIM values
 taxon <- read.csv("DataInputs/Taxon.csv")
@@ -453,7 +454,7 @@ For our 2025 upload, we needed to fix some miscellaneous things (such as the ana
 
 ```{r, results = FALSE, warning=FALSE}
 #Reading in our data
-EIMdata <- read.csv("DataInputs/EIM_data_2015-2025.csv")
+EIMdata <- read.csv("EIM_data_2015-2025.csv")
 
 #Looking at the data
 str(EIMdata)
