@@ -1,11 +1,11 @@
 ---
 title: "How to EIM (with R)"
 output:
-  pdf_document: default
-  html_notebook: default
-  word_document: default
   html_document:
     df_print: paged
+  html_notebook: default
+  word_document: default
+  pdf_document: default
 ---
 
 Adapted from "EIM_HowTo2018" by Liora Llewellyn, based on work completed for the 2025 EIM upload of locations and data spanning from 2015 to 2025.
@@ -413,11 +413,11 @@ Likewise, it's possible for PSSB to use the less common or outdated synonym for 
 
 For entries that have a clear 1 to 1 replacement, place them into a table formatted like the one below to easily replace them in R:
 
-| Old TSN | Old Name | New TSN | New Name |
-|------------------|------------------|------------------|------------------|
-| 0 | Paraleptophlebia Bicornuta Group | 101206 | Paraleptophlebia Bicornuta Group |
-| 0 | Tricyphona | 121118 | Pedicia |
-| 0 | Afghanurus | 100504 | Afghanurus |
+| Old TSN | Old Name                         | New TSN | New Name                         |
+|---------|----------------------------------|---------|----------------------------------|
+| 0       | Paraleptophlebia Bicornuta Group | 101206  | Paraleptophlebia Bicornuta Group |
+| 0       | Tricyphona                       | 121118  | Pedicia                          |
+| 0       | Afghanurus                       | 100504  | Afghanurus                       |
 
 : Replacement Values Table
 
