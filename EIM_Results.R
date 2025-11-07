@@ -87,7 +87,7 @@ EIMdata$Field_Collection_Start_Date <- format(EIMdata$Field_Collection_Start_Dat
 #Checking the Lab Analysis Date
 unique(EIMdata$Lab_Analysis_Date)
 #For some reason, the dates are not correct, so I need to change them
-# in future years, we'll need to figure out why date format for lab analysis date was changed and have it not do that - or we'll have to do this work around agaian that requires creating new date csvs
+# in future years, we'll need to figure out why date format for lab analysis date was changed and have it not do that - or we'll have to do this work around again that requires creating new date csvs
 
   EIMdata<- EIMdata[, -39] #Removing the analysis date column
 
@@ -138,7 +138,7 @@ write.csv(diff_tsn_df, file = "diff_tsn_df_2025_11_06.csv")
 #Checking that result taxon name align with accepted EIM values
 taxon_20251106 <- read.csv("DataInputs/Taxon_2025_11_06.csv")
 
-taxon_name_diff <- setdiff(EIMdata$Result_Taxon_Name, taxon$Taxon_2025_11_06.Name) #Are there Elements in EIMdata but not taxon
+taxon_name_diff <- setdiff(EIMdata$Result_Taxon_Name, taxon_20251106$Taxon.Name) #Are there Elements in EIMdata but not taxon
 
 diff_name_df <- EIMdata %>%
   filter(Result_Taxon_Name %in% taxon_name_diff)
@@ -156,16 +156,32 @@ unique(EIMdata$Result_Taxon_Life_Stage)
 
 #----------------------------------------------------------
 
-#Replacing Incorrect Values
-replacement <- read.csv("DataInputs/Replacement_Values.csv")
+#Replacing Incorrect taxon names
+replacement <- read.csv("DataInputs/Replacement_Values_updated2025_11_07.csv")
 
 EIMdata_updated <- EIMdata %>%
-  left_join(replacement, by = c("Result_Taxon_TSN" = "Old_TSN", "Result_Taxon_Name" = "Old_Name")) %>%
+  left_join(replacement, by = c("Result_Taxon_TSN" = "Old_TSN", "Result_Taxon_Name" = "PSSB_Name")) %>%
   mutate(
-    Result_Taxon_TSN = if_else(!is.na(New_TSN), New_TSN, Result_Taxon_TSN),
-    Result_Taxon_Name = if_else(!is.na(New_Name), New_Name, Result_Taxon_Name)
+    Result_Taxon_TSN = if_else(!is.na(TSN_for_EIM), TSN_for_EIM, Result_Taxon_TSN),
+    Result_Taxon_Name = if_else(!is.na(EIM_Name), EIM_Name, Result_Taxon_Name)
   ) %>%
-  select(-New_TSN, -New_Name)  # Removing extra columns
+  select(-TSN_for_EIM, -EIM_Name)  # Removing extra columns
 
 #Exporting
-write.csv(EIMdata_updated, file = "EIMData_R_Edit.csv")
+write.csv(EIMdata_updated, file = "EIMData_R_Edit_updated.csv")
+
+
+#Anna's code, which call on outdated "replacement values" table
+#Replacing Incorrect Values
+#replacement <- read.csv("DataInputs/Replacement_Values.csv")
+
+#EIMdata_updated <- EIMdata %>%
+ # left_join(replacement, by = c("Result_Taxon_TSN" = "Old_TSN", "Result_Taxon_Name" = "Old_Name")) %>%
+ # mutate(
+  #  Result_Taxon_TSN = if_else(!is.na(New_TSN), New_TSN, Result_Taxon_TSN),
+  #  Result_Taxon_Name = if_else(!is.na(New_Name), New_Name, Result_Taxon_Name)
+ # ) %>%
+ # select(-New_TSN, -New_Name)  # Removing extra columns
+
+#Exporting
+#write.csv(EIMdata_updated, file = "EIMData_R_Edit.csv")
