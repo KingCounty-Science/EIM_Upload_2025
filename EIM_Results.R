@@ -26,14 +26,21 @@ data_sub <- data[,c("Sample_ID","Result_Taxon_Name","Result_Taxon_Life_Stage")]
 #Which data entries are duplicates? *Only pulls out the second occurrence of the same data
 dupes<-data_sub[which(duplicated(data_sub)),]
 
+#asks how many unique sample IDs - (to help explain why there are an uneven number of dup pairs [ 141 dupes] )
+dupes |> select(Sample_ID) |> unique()|> count()
+
 #filtering data in the big dataset that matches our duplicates
 filtered_df <- semi_join(x = data, y = dupes)
+
+#taking a quick look at which sites had more than a single duplicate pair - some of these are explained by life stage (larvae/pupae)
+filtered_df |> group_by(Sample_ID) |> summarise(count = n()) |> filter(count > 2)
 
 #Writing to a .csv to assess
 write.csv(filtered_df, file = "duplicates_PSSB2015-2025.csv")
 
 #-----------------------------------------------
-#For 2025, we decided that the duplicate values shouldn't impact the BIBI score.Thus, we decided to combine the counts for the duplicates. 
+####update 11/6/25 - we may want to revisit decision to lump these based on pending conversation with Sean Sullivan
+###For 2025, we decided that the duplicate values shouldn't impact the BIBI score.Thus, we decided to combine the counts for the duplicates. 
 
 #Combining the counts of all entries based on the same criteria we used to determine the duplicates
 
@@ -55,19 +62,16 @@ newcounts <- summarize(
 final_df <- distinct(newcounts, Sample_ID, Result_Taxon_Name, Result_Taxon_Life_Stage, .keep_all = TRUE)
 
 #Saving data to new .csv
-write.csv(final_df, file = "EIM_data_2015-2025.csv")
+write_csv(final_df, file = "EIM_data_2015_2025.csv")
 
 #-----------------------------------------------------
 #Making changes according to EIM upload errors
 
 #Reading in our data
-EIMdata <- read.csv("DataInputs/EIM_data_2015-2025.csv")
+EIMdata <- read.csv("EIM_data_2015_2025.csv")
 
 #Looking at the data
 str(EIMdata)
-
-#Removing extra column
-EIMdata <- EIMdata[,-1]
 
 #Replacing NA values with ""
 EIMdata[is.na(EIMdata)] <- ""
@@ -83,6 +87,7 @@ EIMdata$Field_Collection_Start_Date <- format(EIMdata$Field_Collection_Start_Dat
 #Checking the Lab Analysis Date
 unique(EIMdata$Lab_Analysis_Date)
 #For some reason, the dates are not correct, so I need to change them
+# in future years, we'll need to figure out why date format for lab analysis date was changed and have it not do that - or we'll have to do this work around agaian that requires creating new date csvs
 
   EIMdata<- EIMdata[, -39] #Removing the analysis date column
 
@@ -99,10 +104,12 @@ unique(EIMdata$Lab_Analysis_Date)
 #Checking that result taxon tsn align with accepted EIM values
 taxon <- read.csv("DataInputs/Taxon.csv")
 
-tsn_diff <- setdiff(EIMdata$Result_Taxon_TSN, taxon$Taxonomic.Serial.Number..TSN.) # Are there Elements in EIMdata but not taxon
+tsn_diff <- setdiff(EIMdata$Result_Taxon_TSN, taxon$Taxonomic.Serial.Number..TSN.) # Are there TSN numbers in our EIMdata but not in the EIM taxon list?
 
 diff_tsn_df <- EIMdata %>%
   filter(Result_Taxon_TSN %in% tsn_diff)
+
+diff_tsn_df |> select(Result_Taxon_TSN) |> group_by(Result_Taxon_TSN) |> summarise(TSNcount = n())
 
 write.csv(diff_tsn_df, file = "diff_tsn_df.csv")
   
