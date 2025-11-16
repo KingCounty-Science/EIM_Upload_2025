@@ -8,14 +8,14 @@
 rm(list = ls())
 
 #Installing packages
-install.packages("xlsx")
+#install.packages("xlsx")
 
 #Loading packages
 library(tidyverse)
 library(xlsx)
 
 #Reading in our data
-data <-read.csv("DataInputs/PSSBDownload_2015-2025.csv")
+data <-read.csv("DataInputs/PSSBDownload_2015-2025_updated2025_11_10.csv")
 
 #Looking at the structure of our data
 str(data)
@@ -101,20 +101,7 @@ unique(EIMdata$Lab_Analysis_Date)
 
   EIMdata <- left_join(x = EIMdata, y = dates, by = "Sample_ID")
 
-#Checking that result taxon tsn align with accepted EIM values
-#taxon <- read.csv("DataInputs/Taxon.csv")
-
-
-#tsn_diff <- setdiff(EIMdata$Result_Taxon_TSN, taxon$Taxonomic.Serial.Number..TSN.) # Are there TSN numbers in our EIMdata but not in the EIM taxon list?
-
-#diff_tsn_df <- EIMdata %>%
-#  filter(Result_Taxon_TSN %in% tsn_diff)
-
-#diff_tsn_df |> select(Result_Taxon_TSN) |> group_by(Result_Taxon_TSN) |> summarise(TSNcount = n())
-
-#write.csv(diff_tsn_df, file = "diff_tsn_df.csv")
-
- #with new taxon list, downloaded from EIM on 2025_11_06; this should have the taxa we asked them to add - and it does!!
+#Checking that result taxon tsn align with accepted EIM values #with new taxon list, downloaded from EIM on 2025_11_06; this should have the taxa we asked them to add - and it does!!
 taxon_20251106<-read.csv("DataInputs/Taxon_2025_11_06.csv")
 tsn_diff <- setdiff(EIMdata$Result_Taxon_TSN, taxon_20251106$Taxonomic.Serial.Number..TSN.) # Are there TSN numbers in our EIMdata but not in the EIM taxon list?
 
@@ -125,15 +112,6 @@ diff_tsn_df |> select(Result_Taxon_TSN) |> group_by(Result_Taxon_TSN) |> summari
 
 write.csv(diff_tsn_df, file = "diff_tsn_df_2025_11_06.csv")  
 
-#Checking that result taxon name align with accepted EIM values
-#taxon <- read.csv("DataInputs/Taxon.csv")
-
-#taxon_name_diff <- setdiff(EIMdata$Result_Taxon_Name, taxon$Taxon.Name) #Are there Elements in EIMdata but not taxon
-
-#diff_name_df <- EIMdata %>%
-#                  filter(Result_Taxon_Name %in% taxon_name_diff)
-  
-#write.csv(diff_name_df, file = "diff_name_df.csv")
 
 #Checking that result taxon name align with accepted EIM values
 taxon_20251106 <- read.csv("DataInputs/Taxon_2025_11_06.csv")
@@ -146,7 +124,7 @@ diff_name_df <- EIMdata %>%
 write.csv(diff_name_df, file = "diff_name_df_2025_11_06.csv")
 
 
-
+#Kate's question - what do these unique calls do? I get that it removes duplicates, but where is it removing these duplicate rows from? It's not clear how we'd have duplicates in rows
 
 #Result Taxon Unidentified Species
 unique(EIMdata$Result_Taxon_Unidentified_Species)
